@@ -24,11 +24,6 @@ refs.loaderEl.classList.replace('loader', 'is-hidden');
 function fetchBreeds() {
   refs.loaderEl.classList.replace('is-hidden', 'loader');
   return axios.get(`${API_URL}/breeds`);
-  //   .then(resp => {
-  //   if (!resp.ok) {
-  //     throw new Error(resp.statusText)
-  //   } return resp.json()
-  // })
 }
 let breedsArr = [];
 fetchBreeds()
@@ -44,47 +39,52 @@ fetchBreeds()
       data: breedsArr,
       settings: {
         showSearch: false,
-        placeholderText: 'Select Value',
       },
     });
+    refs.selectEl.addEventListener('change', onSelected);
   })
   .catch(error => {
-    refs.loaderEl.classList.replace('loader', 'is-hidden');
-    Report.failure(
-      'ERROR',
-      'Oops! Something went wrong! Try reloading the page!',
-      'Okay'
-    );
+    onErrorCath();
   });
 //
 //
 function fetchCatByBreed(breedId) {
-  return axios.get(`${API_URL}/images/search?breed_ids=${breedId}`);
+  refs.loaderEl.classList.replace('is-hidden', 'loader');
+  refs.catList.classList.add('is-hidden');
+  return axios.get(`${API_URL}/images11/search?breed_ids=${breedId}`);
 }
-
-refs.selectEl.addEventListener('change', onSelected);
 
 function onSelected(evt) {
   const ids = evt.currentTarget.value;
-  fetchCatByBreed(ids).then(cat => {
-    console.log(cat.data[0]);
-    const { breeds, } = cat.data[0];
-    const  url  = cat.data[0].url;
-      console.log(url)  
-        refs.catList.innerHTML = `<div class="box-img"><img src="${url}" alt="${breeds[0].name}" width="400"/></div><div class="box"><h1>${breeds[0].name}</h1><p>${breeds[0].description}</p><p><b>Temperament:</b> ${breeds[0].temperament}</p></div>`
-        refs.catList.classList.remove('is-hidden');
-  });
+
+  fetchCatByBreed(ids)
+    .then(cat => {
+      const { breeds } = cat.data[0];
+      const url = cat.data[0].url;
+
+      refs.catList.innerHTML = `
+      <div class="box-img"><img src="${url}" alt="${breeds[0].name}" width="400"/></div>
+      <div class="box"><h2>${breeds[0].name}</h2>
+      <p>${breeds[0].description}</p>
+      <p><b>Temperament:</b> ${breeds[0].temperament}</p></div>`;
+      refs.catList.classList.remove('is-hidden');
+      refs.loaderEl.classList.replace('loader', 'is-hidden');
+    })
+    .catch(error => {
+      onErrorCath();
+    });
 }
 
-function createMarkup(arr) {
-  if (arr.length) {
-    return arr
-      .map(({ url, breeds: { name, description, temperament } }) =>
-        `<img src="${url}" alt="${name}" />
-      <h2>${name}</h2>
-      <h3>${description}</h3>
-      <p>${temperament}</p>`
-      )
-      .join('');
-  }
+function onErrorCath() {
+  refs.loaderEl.classList.replace('loader', 'is-hidden');
+  refs.selectEl.classList.add('is-hidden');
+  Report.failure(
+    'ERROR',
+    'Oops! Something went wrong! Try reloading the page!',
+    'Okay'
+  );
+  const errBTN = document.querySelector('.notiflix-report-button');
+  errBTN.addEventListener('click', evt => {
+    location.reload();
+  });
 }
