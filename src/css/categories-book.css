@@ -1,0 +1,72 @@
+/**
+  |============================
+  | ВИПЛИВАЮЧЕ VIEW ДО КАРТОК З ВИБРАНИМИ КНИГАМИ
+  |============================
+*/
+
+:root {
+  /* layers */
+  --z-10: 10;
+  --z-100: 100;
+  --z-1000: 1000;
+  --z-10000: 10000;
+  --z-100000: 100000;
+}
+.book-info-block {
+  z-index: var(--z-10000);
+}
+.btn-see-more {
+  z-index: var(--z-1000);
+}
+.best-img-link {
+  z-index: var(--z-1000);
+  position: relative;
+  display: inline-block;
+}
+
+.book-wrap {
+  z-index: var(--z-10);
+  position: relative;
+  /* padding-bottom: 70px; */
+  box-sizing: border-box;
+}
+
+.view {
+  z-index: var(--z-100);
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 0px 52px 0px 52px;
+  border-radius: 0px 0px 8px 8px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  margin: 0;
+  opacity: 0;
+  background-color: #eac645;
+  color: #202024;
+  padding-top: 26px;
+  transform: translateY(100%);
+  transition: opacity 0.9s ease, transform 1s;
+}
+
+.best-img-link:hover .view,
+.best-img-link:focus .view {
+  opacity: 50;
+  transform: translateY(0%);
+}
+
+@media screen and (min-width: 768px) {
+  .best-img-link:hover .view,
+  .best-img-link:focus .view {
+    bottom: 18%;
+  }
+}
+@media only screen and (min-width: 1440px) {
+  .best-img-link:hover .view,
+  .best-img-link:focus .view {
+    bottom: 21%;
+  }
+}

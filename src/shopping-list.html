@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="./images/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BookVerse</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700;9..40,900&family=Raleway:wght@800&family=Roboto:wght@400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/styles.css" />
+  </head>
+  <body>
+    <load ="partials/header.html" />
+    <main class="container">
+      <div class="container-book-shop">
+        <div class="support">
+          <load ="partials/foundation.html" />
+        </div>
+        <div class="book-shop">
+          <h2 class="book-shop-title">
+            Shopping <span class="colored">List</span>
+          </h2>
+          <ul class="book-shop-list"></ul>
+          <div class="tui-pagination"></div>
+          <div class="empty-list is-hidden">
+            <p class="empty-list-text">
+              This page is empty, add some books and proceed to order.
+            </p>
+            <img
+              srcset="
+                ./images/shopingList/EmptyListMob@1x.png 265w,
+                ./images/shopingList/EmptyListMob@2x.png 530w,
+                ./images/shopingList/EmptyListTab@1x.png 322w,
+                ./images/shopingList/EmptyListTab@2x.png 644w
+              "
+              sizes="(min-width: 768px) 322px, (min-width: 375px) 265px, 100vw"
+              src="./images/shopingList/EmptyListMob@1x.png"
+              alt="empty-list-img"
+              class="empty-list-img"
+            />
+          </div>
+        </div>
+      </div>
+    </main>
+    <script type="module" src="/mainShop.js"></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/body-scroll-lock/3.1.5/bodyScrollLock.min.js"
+      integrity="sha512-HowizSDbQl7UPEAsPnvJHlQsnBmU2YMrv7KkTBulTLEGz9chfBoWYyZJL+MUO6p/yBuuMO/8jI7O29YRZ2uBlA=="
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
